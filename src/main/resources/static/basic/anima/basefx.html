@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>dojo/_base/fx</title>
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css">
+    <style type="text/css">
+        #statusCode {
+            padding: 5px;
+            border: 1px solid #000;
+            background: red;
+            text-align: center;
+            width: 100px;
+        }
+    </style>
+</head>
+<body class="claro">
+<h3>dojo/_base/fx</h3>
+<h4>anim()</h4>
+<pre>
+    require(['dojo/_base/fx'], function(fx){
+      fx.anim(node, properties, duration, easing, onEnd, delay);
+    });
+</pre>
+<h4>animateProperty()</h4>
+<pre>
+require(["dojo/_base/fx"], function(fx){
+  fx.animateProperty({
+   node:"someId",
+   properties: {
+     width: 300
+   }
+ }).play();
+});
+
+require(["dojo/_base/fx"], function(fx){
+  fx.animateProperty({
+  node:"someId",
+  properties: {
+      width: 300,
+      height: { end: 400, start:100 },
+      fontSize: { end:14, units:"pt" } // beware of stray comma's
+  }
+ }).play();
+});
+</pre>
+<h4>Advance</h4>
+<pre>
+    require(["dojo/dom-geometry", "dojo/_base/fx"], function(domGeometry, fx){
+      fx.animateProperty({
+          node:"someNode",
+          properties:{
+              width:{
+                  start:function(){
+                      // calculate the width before being play'd
+                      return domGeometry.marginBox("someNode").w / 2;
+                  },
+                  end:function(){
+                      return 600;
+                  }
+              }
+          }
+      }).play();
+    });
+
+    require(["dojo/dom-geometry", "dojo/_base/fx"], function(domGeometry, fx){
+      fx.animateProperty({
+         node:"someNode",
+         properties:{
+           height: function(node){
+             // notice 'node' being passed. Also new in Dojo 1.4
+             // can return any animateProperty syntax:
+             // return { start:5, end:2 };
+             // return 100;
+             // return { end:50, units:"pt" }
+
+             // make this node 3x it's current height
+             return domGeometry.marginBox(node).h * 3
+
+           }
+        }
+      }).play();
+    });
+</pre>
+<h4>A simple animation changing both background color and text color.</h4>
+<p><button onclick="statusOk();">Grant access</button></p>
+<div id="statusCode">Denied</div>
+<h4>How can I change the frame rate of an animation</h4>
+<p>
+    <button onclick="animateDefault();">Animate (default fps)</button>
+    <button onclick="animateSlow();">Animate (1 fps)</button>
+</p>
+<div id="animateProperty">This will be animated</div>
+
+<a href="fadeinout.html"><h4>Fade in fade out</h4></a>
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+<script>
+require(['dojo/dom', 'dojo/_base/fx'], function (dom, baseFx) {
+    statusOk = function () {
+        baseFx.animateProperty({
+            node: dom.byId('statusCode'),
+            duration: 500,
+            properties: {
+                backgroundColor: {start: 'red', end: 'green'},
+                color: {start: 'black', end: 'white'}
+            },
+            onEnd: function () {
+                dom.byId('statusCode').innerHTML = 'Granted';
+            }
+        }).play();
+    };
+
+    animateSlow = function () {
+        baseFx.animateProperty({
+            node: dom.byId('animateProperty'),
+            duration: 10000,
+            properties: {
+                fontSize: {start: '12', end: '30'}
+            },
+            rate: 1000
+        }).play();
+    };
+
+    animateDefault = function () {
+        baseFx.animateProperty({
+            node: dom.byId('animateProperty'),
+            duration: 10000,
+            properties: {
+                fontSize: {start: '12', end: '30'}
+            }
+        }).play();
+    };
+});
+</script>
+</body>
+</html>

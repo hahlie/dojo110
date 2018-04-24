@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo: Animation Easing</title>
+    <link rel="stylesheet" href="style.css" media="screen">
+</head>
+<body>
+<h3>Demo: Animation Easing</h3>
+<button id="dropButton">Drop block</button>
+<button id="ariseSirButton">Return block</button>
+
+<div id="anim8target" class="box" style="top: 0; left: 50%; background-color: #fc9">
+    <div class="innerBox">A box</div>
+</div>
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+<script>
+    require(['dojo/_base/fx', 'dojo/fx/easing', 'dojo/window', 'dojo/on', 'dojo/dom', 'dojo/domReady!'],
+        function (baseFx, easing, win, on, dom) {
+            var dropButton = dom.byId('dropButton'),
+                ariseSirButton = dom.byId('ariseSirButton'),
+                anim8target = dom.byId('anim8target');
+            on(dropButton, 'click', function (evt) {
+                var viewpoint = win.getBox(win.doc);
+                baseFx.animateProperty({
+                    easing: easing.bounceOut,
+                    duration: 500,
+                    node: anim8target,
+                    properties: {
+                        top: {start: 0, end: viewpoint.h - anim8target.offsetHeight}
+                    }
+                }).play();
+            });
+            on(ariseSirButton, 'click', function (evt) {
+                baseFx.animateProperty({
+                    node: anim8target,
+                    properties: {top: 0}
+                }).play();
+            });
+    });
+</script>
+</body>
+</html>

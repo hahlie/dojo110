@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Easing Case</title>
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css">
+</head>
+<body class="claro">
+<select id="easingSelector">
+    <option>linear</option>
+    <option>quadIn</option>
+    <option>quadOut</option>
+    <option>quadInOut</option>
+    <option>cubicIn</option>
+    <option>cubicOut</option>
+    <option>cubicInOut</option>
+    <option>quartIn</option>
+    <option>quartOut</option>
+    <option>quartInOut</option>
+    <option>quintIn</option>
+    <option>quintOut</option>
+    <option>quintInOut</option>
+    <option>sineIn</option>
+    <option>sineOut</option>
+    <option>sineInOut</option>
+    <option>expoIn</option>
+    <option>expoOut</option>
+    <option>expoInOut</option>
+    <option>circIn</option>
+    <option>circOut</option>
+    <option>circInOut</option>
+    <option>backIn</option>
+    <option>backOut</option>
+    <option>backInOut</option>
+    <option>elasticIn</option>
+    <option>elasticOut</option>
+    <option>elasticInOut</option>
+    <option>bounceIn</option>
+    <option>bounceOut</option>
+    <option>bounceInOut</option>
+</select>
+<button type="button" id="moveButton">Move the div!</button>
+<div id="moveableNode" style="width: 100px; height: 100px; background-color: red; margin-left: 0px;"></div>
+
+<a href="basefx.html">_base/fx fade in and fade out</a>
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+<script>
+    require(['dojo/_base/fx', 'dojo/fx/easing', 'dojo/on',
+        'dojo/dom', 'dojo/dom-prop', 'dojo/dom-style', 'dojo/domReady!'],
+        function (baseFx, easing, on, dom, domProp, domStyle) {
+            on(dom.byId('moveButton'), 'click', function () {
+                domStyle.set('moveableNode', 'marginLeft', '0px');
+                var easeType = domProp.get('easingSelector', 'value'),
+                    ef = easing[easeType];
+                if(ef){
+                    baseFx.animateProperty({
+                        node: 'moveableNode',
+                        properties: {
+                            marginLeft: {start: 0, end: 400, unit: 'px'}
+                        },
+                        easing: ef,
+                        duration: 5000
+                    }).play();
+                }
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fade In Fade Out</title>
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css">
+</head>
+<body class="claro">
+<h3>Example 1: Fade in a dom node</h3>
+<button id="basicFadeButton">Fade It In!</button>
+<div id="basicFadeNode" style="width: 100px; height: 100px; background-color: red;"></div>
+
+<h3>Example 2: Fade in a dom node with a custom duration</h3>
+<button id="basicFadeButton2">Fade It In Slow!</button>
+<div id="basicFadeNode2" style="width: 100px; height: 100px; background-color: red;"></div>
+
+<h3>Example 3: Fade in a dom node with an easing function</h3>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/dom', 'dojo/_base/fx', 'dojo/on', 'dojo/dom-style', 'dojo/domReady!'],
+        function (dom, baseFx, on, domStyle) {
+            function fadeIt() {
+                domStyle.set('basicFadeNode', 'opacity', '0');
+                var fadeArgs = {
+                    node: 'basicFadeNode'
+                };
+                baseFx.fadeIn(fadeArgs).play();
+            }
+            on(dom.byId('basicFadeButton'), 'click', fadeIt);
+
+            function fadeIt2() {
+                domStyle.set('basicFadeNode2', 'opacity', '0');
+                var fadeArgs = {
+                    node: 'basicFadeNode2',
+                    duration: 5000
+                };
+                baseFx.fadeIn(fadeArgs).play();
+            }
+            on(dom.byId('basicFadeButton2'), 'click', fadeIt2);
+    });
+</script>
+</body>
+</html>

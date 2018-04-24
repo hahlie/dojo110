@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>基础配置</title>
+</head>
+<body>
+基础配置
+<h1 id="greeting">hello</h1>
+<a href="basic/dom.html">Dom 操作</a>
+<a href="basic/anima/animate.html">Animate</a>
+<script>
+    dojoConfig = {
+        has: {
+            "dojo-firebug": true,
+            "dojo-debug-messages": true
+        },
+        parseOnLoad: false,
+        async: true
+    }
+</script>
+<script src="js/dojo/dojo.js"></script>
+<script>
+    /*require([
+        'dojo/dom',
+        'dojo/dom-construct'
+    ],function (dom,domConstruct) {
+        var greetingNode = dom.byId('greeting');
+        domConstruct.place('<em> Dojo!</em>',greetingNode);
+    });*/
+    require(['dojo/dom','dojo/fx','dojo/domReady!'], function (dom, fx) {
+        var greetingNode = dom.byId('greeting');
+        greetingNode.innerHTML += ' from dojo!';
+        fx.slideTo({
+            node: greetingNode,
+            top: 100,
+            left: 200
+        });
+    });
+</script>
+</body>
+</html>
