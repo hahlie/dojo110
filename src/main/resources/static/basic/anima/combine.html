@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Example 1: Demonstration of combining three chained animations</title>
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css">
+</head>
+<body class="claro">
+<h3>Example 1: Demonstration of combining three chained animations</h3>
+<button data-dojo-type="dijit/form/Button" id="startButton">Start the complex loop!</button>
+<button data-dojo-type="dijit/form/Button" id="endButton">End the complex loop!</button>
+<div id="basicNode1" style="width: 100px; height: 100px; background-color: red"></div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
+<script>
+    dojo.require('dijit.form.Button');
+    dojo.require('dojo.fx');
+    dojo.require('dojo.fx.easing');
+    function basicCombine(){
+        function combineIt() {
+            var displayAnim = dojo.fx.chain([
+                dojo.fadeOut({node: 'basicNode1', duration: 1000}),
+                dojo.fadeIn({node: 'basicNode1', duration: 1000})
+            ]);
+            var moveAnim = dojo.fx.chain([
+                dojo.animateProperty({
+                    node: 'basicNode1',
+                    properties: {
+                        marginLeft: {start: 0, end: 400, unit: 'px'}
+                    },
+                    duration: 1000,
+                    easing: dojo.fx.easing.backOut
+                }),
+                dojo.animateProperty({
+                    node: 'basicNode1',
+                    properties: {
+                        marginLeft: {start: 400, end: 0, unit: 'px'}
+                    },
+                    duration: 1000,
+                    easing: dojo.fx.easing.backOut
+                })
+            ]);
+            var resizeColorAnim = dojo.fx.chain([
+                dojo.animateProperty({
+                    node: 'basicNode1',
+                    properties: {
+                        width: {start: 100, end: 200, unit: 'px'},
+                        height: {start: 100, end: 200, unit: 'px'},
+                        backgroundColor: {start: 'red', end: 'green'}
+                    },
+                    duration: 1000
+                }),
+                dojo.animateProperty({
+                    node: 'basicNode1',
+                    properties: {
+                        width: {start: 200, end: 100, unit: 'px'},
+                        height: {start: 200, end: 100, unit: 'px'},
+                        backgroundColor: {start: 'green', end: 'red'}
+                    },
+                    duration: 1000
+                })
+            ]);
+            var combinedAnim = dojo.fx.combine([displayAnim, moveAnim, resizeColorAnim]);
+            var handle = dojo.connect(combinedAnim, 'onEnd', function () {
+                combineIt();
+            });
+            dojo.connect(dijit.byId('endButton'), 'onClick', function () {
+                dojo.disconnect(handle);
+            });
+            combinedAnim.play();
+        }
+        dojo.connect(dijit.byId('startButton'), 'onClick', combineIt);
+    }
+    dojo.ready(basicCombine);
+</script>
+</body>
+</html>

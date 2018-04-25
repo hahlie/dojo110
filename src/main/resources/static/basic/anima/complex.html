@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>dojox.fx.ext-dojo.complex</title>
+    <style>
+        #cnt{
+            width:300px;
+            height:300px;
+            border:1px solid #666;
+            position:relative;
+        }
+        #words{
+            width:300px;
+            height:300px;
+            margin:0px;
+            padding:5px;
+            top:0px;
+            position:absolute;
+            border:1px solid #000;
+            background:#0000ff;
+            clip:rect(10px 30px 30px 10px);
+        }
+        #words p{
+            font-size:48px;
+        }
+    </style>
+</head>
+<body>
+<h3>dojox.fx.ext-dojo.complex</h3>
+<div id="cnt">
+    <div id="words">
+        <p>Dojo</p>
+    </div>
+</div>
+<script src="../../js/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
+<script>
+    dojo.require('dojox.fx.ext-dojo.complex');
+    dojo.ready(function () {
+        var ani = dojo.animateProperty({
+            node: dojo.byId('words'),
+            duration: 800,
+            properties: {
+                clip: {start: 'rect(150px 150px 150px 150px)', end: 'rect(0 300px 300px 0)'}
+            }
+        }).play();
+    });
+</script>
+</body>
+</html>

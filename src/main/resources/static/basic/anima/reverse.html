@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>dojox.fx.ext-dojo.reverse</title>
+    <style>
+        .lft{
+            width:300px;
+            height:300px;
+            border:1px solid #666;
+            position:relative;
+            float:left;
+        }
+        #ball{
+            width:50px;
+            height:50px;
+            margin:0px auto;
+            top:125px;
+            position:relative;
+            border:1px solid #000;
+            background:#0000ff;
+        }
+    </style>
+</head>
+<body>
+<h3>dojox.fx.ext-dojo.reverse</h3>
+<button id="btn">Reverse</button>
+<div class="lft">
+    <div id="ball"></div>
+</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
+<script>
+    dojo.require('dojox.fx.ext-dojo.reverse');
+    dojo.ready(function () {
+        var ani = dojo.animateProperty({
+            node: dojo.byId('ball'),
+            duration: 1000,
+            easing: dojo.fx.easing.bounceOut,
+            properties: {
+                width: {start: 50, end: 150, units: 'px'},
+                height: {start: 50, end: 150, units: 'px'},
+                top: {start: 125, end: 75, units: 'px'},
+                opacity: {start: 1, end: .2},
+                backgroundColor: {start: '#0000ff', end: '#ff0000'}
+            }
+        });
+        ani.play();
+        dojo.connect(dojo.byId('btn'), 'click', function () {
+            ani.reverse();
+        });
+    });
+</script>
+</body>
+</html>
