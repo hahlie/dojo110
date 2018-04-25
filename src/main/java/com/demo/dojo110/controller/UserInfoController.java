@@ -16,4 +16,9 @@ public class UserInfoController {
     public List<Userinfo> list(){
         return UserInfoFactory.getUserinfos();
     }
+
+    @GetMapping("one")
+    public Userinfo one(){
+        return UserInfoFactory.getUserinfos().get(0);
+    }
 }
