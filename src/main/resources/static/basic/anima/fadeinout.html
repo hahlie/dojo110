@@ -20,7 +20,18 @@
 <div id="basicFadeNode3" style="width: 100px; height: 100px; background-color: red;"></div>
 
 <h3>Fade Out</h3>
-<h3></h3>
+<h3>Example 1: Fade out a dom node</h3>
+<button id="basicFadeOutButton">Fade It Out!</button>
+<div id="basicFadeOutNode" style="width: 100px; height: 100px; background-color: red"></div>
+
+<h3>Example 2: Fade out a dom node with a custom duration</h3>
+<button id="basicFadeOutButton2">Fade It Out Slow!</button>
+<div id="basicFadeOutNode2" style="width: 100px; height: 100px; background-color: red"></div>
+
+<h3>Example 3: Fade out a dom node with an easing function</h3>
+<button id="basicFadeOutButton3">Fade It Out Slow with Expo Easing!</button>
+<div id="basicFadeOutNode3" style="width: 100px; height: 100px; background-color: red;"></div>
+
 <script src="../../js/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: false"></script>
 <script>
     require(['dojo/dom', 'dojo/fx/easing', 'dojo/_base/fx', 'dojo/on', 'dojo/dom-style', 'dojo/domReady!'],
@@ -54,6 +65,36 @@
                 baseFx.fadeIn(fadeArgs).play();
             }
             on(dom.byId('basicFadeButton3'), 'click', fadeIt3);
+
+            function fadeout1() {
+                domStyle.set('basicFadeOutNode', 'opacity', '1');
+                var fadeArgs = {
+                    node: 'basicFadeOutNode'
+                };
+                baseFx.fadeOut(fadeArgs).play();
+            }
+            on(dom.byId('basicFadeOutButton'), 'click', fadeout1);
+
+            function fadeout2() {
+                domStyle.set('basicFadeOutNode2', 'opacity', '1');
+                var fadeArgs = {
+                    node: 'basicFadeOutNode2',
+                    duration: 5000
+                };
+                baseFx.fadeOut(fadeArgs).play();
+            }
+            on(dom.byId('basicFadeOutButton2'), 'click', fadeout2);
+
+            function fadeout3() {
+                domStyle.set('basicFadeOutNode3', 'opacity', '1');
+                var fadeArgs = {
+                    node: 'basicFadeOutNode3',
+                    duration: 10000,
+                    easing: easing.expoOut
+                };
+                baseFx.fadeOut(fadeArgs).play();
+            }
+            on(dom.byId('basicFadeOutButton3'), 'click', fadeout3);
     });
 </script>
 </body>
