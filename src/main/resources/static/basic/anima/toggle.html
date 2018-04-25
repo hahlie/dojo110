@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Toggler</title>
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css">
+</head>
+<body class="claro">
+<h3>Toggler</h3>
+<h3>Example 1: Toggle a DOM node (with defaults)</h3>
+<button type="button" id="hideButton">Hide the node!</button>
+<button type="button" id="showButton">Show the node!</button>
+<div id="basicNode" style="width: 200px; background-color: red">
+    <b>This is a container of random content to toggle!</b>
+</div>
+
+<h3>Example 2: Toggle a DOM node with custom durations</h3>
+<button type="button" id="hideButton2">Hide the node!</button>
+<button type="button" id="showButton2">Show the node!</button>
+<div id="basicNode2" style="width: 200px; background-color: red">
+    <b>This is a container of random content to toggle!</b>
+</div>
+
+<h3>Example 3: Toggle a DOM node with custom animation functions</h3>
+<button type="button" id="hideButton3">Hide the node! </button>
+<button type="button" id="showButton3">Show the node! </button>
+<div id="basicNode3" style="width: 200px; background-color: red;">
+    <b>This is a container of random content to toggle!</b>
+</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoard: false"></script>
+<script>
+    require(['dojo/fx/Toggler', 'dojo/fx', 'dojo/dom', 'dojo/on', 'dojo/domReady!'],
+        function (Toggler, coreFx, dom, on) {
+            var toggler = new Toggler({
+                node: 'basicNode'
+            });
+            on(dom.byId('hideButton'), 'click', function (e) {
+                toggler.hide();
+            });
+            on(dom.byId('showButton'), 'click', function (e) {
+                toggler.show();
+            });
+
+            var toggler2 = new Toggler({
+                node: 'basicNode2',
+                showDuration: 3000,
+                hideDuration: 5000
+            });
+            on(dom.byId('hideButton2'), 'click', function (e) {
+                toggler2.hide();
+            });
+            on(dom.byId('showButton2'), 'click', function (e) {
+                toggler2.show();
+            });
+
+            var toggler3 = new Toggler({
+                node: 'basicNode3',
+                showFunc: coreFx.wipeIn,
+                hideFunc: coreFx.wipeOut
+            });
+            on(dom.byId('hideButton3'), 'click', function (e) {
+                toggler3.hide();
+            });
+            on(dom.byId('showButton3'), 'click', function (e) {
+                toggler3.show();
+            });
+    });
+</script>
+</body>
+</html>

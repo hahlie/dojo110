@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>dojox.fx.style</title>
+</head>
+<body>
+<h3>dojox.fx.style</h3>
+<pre>
+dojo.require("dojox.fx.style");
+dojo.ready(function(){
+
+    // remove class="bar" from node id="foo"
+    dojox.fx.removeClass("foo", "bar").play();
+
+    // add the class="bar" to node id="baz"
+    dojox.fx.addClass("baz", "bar").play();
+
+    // toggle the class "bar" on id="bamm"
+    dojox.fx.toggleClass("bamm", "bar").play();
+
+});
+</pre>
+<pre>
+dojox.fx.addClass("baz", "bar", {
+    duration:5000, onEnd: function(node){ console.log("we're done with", node) }
+}).play();
+</pre>
+<pre>
+dojox.fx.toggleClass("bar", "baz", undefined, {
+    duration:1500, easing: dojo.fx.easing.backOut
+}).play();
+</pre>
+<pre>
+    dojo.require("dojox.fx.ext-dojo.NodeList-style");
+    dojo.query("li.bar").addClassFx("baz").play();
+    dojo.query("a.featured").removeClassFx("featured").play();
+    dojo.query("a.bizam").toggleClassFx("aClass").play();
+</pre>
+</body>
+</html>

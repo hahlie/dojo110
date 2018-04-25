@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Node List Fx</title>
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css">
+</head>
+<body class="claro">
+<button id="fadebutton">Fade Them Out</button>
+<div id="fadebuttontarget">
+    <li class="thinger">Item One</li>
+    <li class="thinger">Item Two</li>
+</div>
+<script src="../../js/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
+<script>
+    dojo.require("dojo.NodeList-fx");
+    dojo.ready(function(){
+        dojo.query("#fadebutton").onclick(function(){
+            dojo.query("#fadebuttontarget li").fadeOut().play();
+        });
+    });
+    /*require(['dojo/ready', 'dojo/query', 'dojo/NodeList-fx'],
+        function (ready, query, nodeListFx) {
+            ready(function () {
+                query('li.evens').fadeOut({
+                    duration: 1000,
+                    onEnd: function () {
+
+                    },
+                    auto: true
+                }).onclick(doSomething);
+            });
+    });*/
+</script>
+</body>
+</html>
