@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Wiping</title>
+    <link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="demo.css" media="screen">
+</head>
+<body>
+<h3>Tutorial: fx.wipeIn and fx.wipeOut</h3>
+<button id="wipeOutButton">Wipe block out</button>
+<button id="wipeInButton">Wipe block in</button>
+
+<div id="wipeTarget" class="red-block wipe">
+A red block
+</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/fx', 'dojo/on', 'dojo/dom', 'dojo/domReady!'],
+        function (fx, on, dom) {
+           var wipeOutButton = dom.byId('wipeOutButton'),
+               wipeInButton = dom.byId('wipeInButton'),
+               wipeTarget = dom.byId('wipeTarget');
+           on(wipeOutButton, 'click', function (evt) {
+               fx.wipeOut({node: wipeTarget}).play();
+           });
+           on(wipeInButton, 'click', function (evt) {
+               fx.wipeIn({node: wipeTarget}).play();
+           });
+    });
+</script>
+</body>
+</html>

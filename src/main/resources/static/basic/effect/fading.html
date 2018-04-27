@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fading</title>
+    <link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="demo.css" media="screen">
+</head>
+<body>
+<h3>Tutorial: fx.fadeIn and fx.fadeOut</h3>
+<button id="fadeOutButton">Fade block out</button>
+<button id="fadeInButton">Fade block in</button>
+<div id="fadeTarget" class="red-block">
+    A red block
+</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/_base/fx', 'dojo/on', 'dojo/dom', 'dojo/domReady!'], function (fx, on, dom) {
+        var fadeOutButton = dom.byId('fadeOutButton'),
+            fadeInButton = dom.byId('fadeInButton'),
+            fadeTarget = dom.byId('fadeTarget');
+        on(fadeOutButton, 'click', function (evt) {
+            fx.fadeOut({
+                node: fadeTarget
+            }).play();
+        });
+        on(fadeInButton, 'click', function (evt) {
+            fx.fadeIn({node: fadeTarget}).play();
+        });
+    });
+</script>
+</body>
+</html>

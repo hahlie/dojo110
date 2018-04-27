@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial: fx.chain</title>
+    <link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="demo.css" media="screen">
+</head>
+<body>
+<h3>Tutorial: fx.chain</h3>
+<button id="slideAwayButton">Slide block away</button>
+<button id="slideBackButton">Slide block back</button>
+
+<div id="slideTarget" class="red-block slide chain">
+    A red block
+</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/_base/fx', 'dojo/fx', 'dojo/on', 'dojo/dom', 'dojo/domReady!'],
+        function (baseFx, fx, on, dom) {
+
+    });
+</script>
+</body>
+</html>
