@@ -23,4 +23,44 @@ public class UserInfoFactory {
     public static List<Userinfo> getUserinfos(){
         return userinfos;
     }
+
+    public synchronized static void deleteUserInfoById(long id){
+        for(Userinfo userinfo: userinfos){
+            if(userinfo.getId() == id){
+                userinfos.remove(userinfo);
+                return;
+            }
+        }
+    }
+
+    public synchronized static void updateUserInfoById(Userinfo userinfo){
+        if(null != userinfo){
+            for(Userinfo info: userinfos){
+                if(info.getId() == userinfo.getId()){
+                    info.setName(userinfo.getName());
+                    info.setAddress(userinfo.getAddress());
+                    info.setDepartment(userinfo.getDepartment());
+                    info.setLevel(userinfo.getLevel());
+                    return;
+                }
+            }
+        }
+    }
+
+    public synchronized static void addUserInfo(Userinfo userinfo){
+        if(null != userinfo){
+            userinfo.setId(initId());
+            userinfos.add(userinfo);
+        }
+    }
+
+    private synchronized static long initId(){
+        long max = 0l;
+        for(Userinfo info: userinfos){
+            if(info.getId() > max){
+                max = info.getId();
+            }
+        }
+        return max++;
+    }
 }
