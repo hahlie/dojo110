@@ -2,9 +2,33 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Demo: Publish and Subscribe with dojo/topic</title>
+    <link rel="stylesheet" href="demo.css" media="screen">
 </head>
 <body>
+<h3>Demo: Publish and Subscribe with dojo/topic</h3>
+<button id="alertButton">Alert the user</button>
+<button id="createAlert">Create another alert button</button>
 
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/on', 'dojo/topic', 'dojo/dom', 'dojo/dom-construct', 'dojo/domReady!'],
+        function (on, topic, dom, domConstruct) {
+            var alertButton = dom.byId('alertButton'), 
+                createAlert = dom.byId('createAlert');
+            on(alertButton, 'click', function (evt) {
+                topic.publish('alertUser', 'I am alerting you.');
+            });
+            on(createAlert, 'click', function (evt) {
+                var anotherButton = domConstruct.create('button', {innerHTML: 'Another alert button'}, createAlert, 'after');
+                on(anotherButton, 'click', function (evt) {
+                    topic.publish('alertUser', 'I am also alerting you.')
+                });
+            });
+            topic.subscribe('alertUser', function (text) {
+                alert(text);
+            })
+    });
+</script>
 </body>
 </html>
