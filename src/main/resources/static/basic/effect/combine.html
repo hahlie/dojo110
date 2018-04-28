@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Tutorial: fx.chain</title>
+    <title>Tutorial: fx.combine</title>
     <link rel="stylesheet" href="style.css" media="screen">
     <link rel="stylesheet" href="demo.css" media="screen">
 </head>
 <body>
-<h3>Tutorial: fx.chain</h3>
+<h3>Tutorial: fx.combine</h3>
 <button id="slideAwayButton">Slide block away</button>
 <button id="slideBackButton">Slide block back</button>
 
@@ -17,21 +17,19 @@
 
 <script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
 <script>
-    require(['dojo/_base/fx', 'dojo/fx', 'dojo/on', 'dojo/dom', 'dojo/domReady!'],
+    require(['dojo/_base/fx', 'dojo/fx', 'dojo/on','dojo/dom', 'dojo/domReady!'],
         function (baseFx, fx, on, dom) {
             var slideAwayButton = dom.byId('slideAwayButton'),
                 slideBackButton = dom.byId('slideBackButton'),
                 slideTarget = dom.byId('slideTarget');
             on(slideAwayButton, 'click', function (evt) {
-                fx.chain([
+                fx.combine([
                     baseFx.fadeIn({node: slideTarget}),
-                    fx.slideTo({node: slideTarget, left: '200', top: '200'}),
-                    baseFx.fadeOut({node: slideTarget})
+                    fx.slideTo({node: slideTarget, left: '200', top: '200'})
                 ]).play();
             });
             on(slideBackButton, 'click', function (evt) {
-                fx.chain([
-                    baseFx.fadeIn({node: slideTarget}),
+                fx.combine([
                     fx.slideTo({node: slideTarget, left: '0', top: '100'}),
                     baseFx.fadeOut({node: slideTarget})
                 ]).play();
