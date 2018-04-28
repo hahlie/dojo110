@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Normal</title>
+</head>
+<body>
+<h3>Normal</h3>
+<button id="myButton">Click me!</button>
+<div id="myDiv">Hover over me!</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/on', 'dojo/dom', 'dojo/dom-style', 'dojo/mouse', 'dojo/domReady!'],
+        function (on, dom, domStyle, mouse) {
+            var myButton = dom.byId('myButton'),
+                myDiv = dom.byId('myDiv');
+            on(myButton, 'click', function (evt) {
+                domStyle.set('myDiv', 'backgroundColor', 'blue');
+            });
+            on(myDiv, mouse.enter, function (evt) {
+                domStyle.set('myDiv', 'backgroundColor', 'red');
+            });
+            on(myDiv, mouse.leave, function (evt) {
+                domStyle.set('myDiv', 'backgroundColor', '');
+            });
+    });
+</script>
+</body>
+</html>

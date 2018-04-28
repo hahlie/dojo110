@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo: Event Delegation with dojo/on</title>
+    <link rel="stylesheet" href="demo.css" media="screen">
+</head>
+<body>
+<h3>Demo: Event Delegation with dojo/on</h3>
+<div id="parentDiv">
+    <button id="button1" class="clickMe">Click me</button>
+    <button id="button2" class="clickMeAlso">Click me also</button>
+    <button id="button3" class="clickMe">Click me too</button>
+    <button id="button4" class="clickMeAlso">Please click me</button>
+</div>
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/on', 'dojo/dom', 'dojo/query', 'dojo/domReady!'], function (on, dom, query) {
+        var myObject = {id: 'myObject', onClick: function () {
+                alert('The scope of this handler is ' + this.id);
+            }};
+        var div = dom.byId('parentDiv');
+        on(div, '.clickMe:click', myObject.onClick);
+    });
+</script>
+</body>
+</html>
