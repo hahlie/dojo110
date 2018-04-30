@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo: dojo/keys2</title>
+    <link rel="stylesheet" href="demo.css" media="screen">
+    <style>
+        input{
+            display: block;
+        }
+        #console{
+            margin-top: 2em;
+            border-top: 1px solid #333;
+        }
+        #console div{
+            background: #eee;
+            padding: 5px 10px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+<h3>Demo: dojo/keys2</h3>
+<input type="text" id="input1" value="up">
+<input type="text" id="input2" value="down">
+<input type="submit" id='send' value="send">
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/dom-construct', 'dojo/on', 'dojo/query', 'dojo/keys', 'dojo/dom', 'dojo/domReady!'], 
+        function (domConstruct, on, query, keys, dom) {
+            function log(msg) {
+                var c = dom.byId('console');
+                if(!c){
+                    c = domConstruct.create('div', {id: 'cosole'}, document.body);
+                }
+                c.innerHTML += '<div>' + msg + '</div>';
+            }
+            
+            query('input[type=\'text\']').on('keydown', function (event) {
+                switch (event.keyCode){
+                    case keys.UP_ARROW:
+                        event.preventDefault();
+                        log('up arrow has been pressed');
+                        break;
+                    case keys.DOWN_ARROW:
+                        event.preventDefault();
+                        log('down arrow has been pressed');
+                        break;
+                    case keys.ENTER:
+                        log('enter has been pressed');
+                        break;
+                    default:
+                        log('some other key: '+ event.keyCode);
+                }
+            });
+    });
+</script>
+</body>
+</html>

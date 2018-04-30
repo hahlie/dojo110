@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo: dojo/keys1</title>
+    <link rel="stylesheet" href="demo.css" media="screen">
+    <style>
+        input{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<h3>Press any key</h3>
+keyCode value: <input type="text" id="keyCode" size="2">
+
+<script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: false"></script>
+<script>
+    require(['dojo/on', 'dojo/dom', 'dojo/domReady!'], function (on, dom) {
+        on(document, 'keyup', function (evt) {
+            dom.byId('keyCode').value = event.keyCode;
+        });
+    });
+</script>
+</body>
+</html>
