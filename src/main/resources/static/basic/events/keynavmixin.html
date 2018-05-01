@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Keyboard Navigation with dijit/_KeyNavMixin</title>
+    <link rel="stylesheet" href="../../js/dojo/resources/dojo.css" media="screen">
+    <link rel="stylesheet" href="../../js/dijit/themes/claro/claro.css" media="screen">
+    <style>
+        table{
+            width: 20em;
+            margin: 3em 0 0 3em;
+        }
+        table, td{
+            border: 1px solid gray;
+        }
+        td:focus{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body class="claro">
+    <p>
+        <h1>Click on a cell below, then try navigating:</h1>
+        <ul>
+            <li>up, down, left, right</li>
+            <li>home, end</li>
+            <li>Letters - "a" for "apple", "b" for "banana", etx</li>
+        </ul>
+    </p>
+    <table data-dojo-type="MyGrid" id="grid">
+        <tr>
+            <td data-dojo-type="MyCell">apple</td>
+            <td data-dojo-type="MyCell">banana</td>
+            <td data-dojo-type="MyCell">orange</td>
+        </tr>
+        <tr>
+            <td data-dojo-type="MyCell">pear</td>
+            <td data-dojo-type="MyCell">grapes</td>
+            <td data-dojo-type="MyCell">strawberry</td>
+        </tr>
+    </table>
+
+    <script src="../../js/dojo/dojo.js" data-dojo-config="isDebug: false, async: true, parseOnLoad: false"></script>
+    <script>
+        require([
+            'dojo/_base/declare',
+            'dojo/_base/array',
+            'dojo/parser',
+            'dojo/query',
+            'dijit/_WidgetBase',
+            'dijit/_KeyNavMixin',
+            'dojo/domReady!'
+        ], function (declare, arrayUtil, parser, query, _WidgetBase, _KeyNavMixin) {
+            MyGrid = declare([_WidgetBase, _KeyNavMixin], {
+                buildRendering: function () {
+                    this.inherited(arguments);
+                    this.containerNode = this.domNode;
+                },
+                postCreate: function () {
+                    this.inherited(arguments);
+                    this.domNode.setAttribute('tabIndex', '0');
+                },
+                childSelector: 'td',
+                _focusedChildIndex: function (children) {
+                    return arrayUtil.indexOf(children, this.focusedChild);
+                }, 
+                _getFirst: function () {
+                    return this.getChildren()[0];
+                }, 
+                _getLast: function () {
+                    var children = this.getChildren();
+                    return children[children.length - 1];
+                }, 
+                _onLeftArrow: function () {
+                    var children = this.getChildren();
+                    this.focusChild(children[(this._focusedChildIndex(children) - 1 + children.length) % children.length]);
+                },
+                _onRightArrow: function () {
+                    var children = this.getChildren();
+                    this.focusChild(children[(this._focusedChildIndex(children) + 1) % children.length]);
+                },
+                _numCols: function () {
+                    return query('tr:first-child > td', this.domNode).length;
+                },
+                _onDownArrow: function () {
+                    var children = this.getChildren();
+                    this.focusChild(children[(this._focusedChildIndex(children) + this._numCols()) % children.length]);
+                },
+                _onUpArrow: function () {
+                    var children = this.getChildren();
+                    this.focusChild(children[(this._focusedChildIndex(children) - this._numCols() + children.length) % children.length]);
+                },
+                _getNext: function (child) {
+                    var children = this.getChildren();
+                    return children[(arrayUtil.indexOf(children, child) + 1) % children.length];
+                }
+            });
+
+            MyCell = declare(_WidgetBase, {
+                postCreate: function () {
+                    this.domNode.setAttribute('tabIndex', '-1');
+                },
+                focus: function () {
+                    this.domNode.focus();
+                }
+            });
+
+            parser.parse();
+        });
+    </script>
+</body>
+</html>
