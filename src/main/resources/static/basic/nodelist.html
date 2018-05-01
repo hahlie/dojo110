@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NodeList Extensions</title>
+</head>
+<body>
+<a href="nodelist/demo1.html"><h3>Demo: NodeList Extensions: dojo/query Recap</h3></a>
+<pre>
+    require(["dojo/query", "dojo/NodeList-dom"], function(query){
+    query("li.fresh")
+        .addClass("fresher")
+        .attr("title", "freshened")
+        .style("background", "lightblue")
+        .on("click", function(){
+            alert("I love fresh " + this.innerHTML);
+        });
+    });
+</pre>
+<a href="nodelist/demo2.html"><h3>Demo: NodeList Extensions: dojo/NodeList-fx</h3></a>
+</body>
+</html>
